@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<message-settings>
+  <mail>
+    <smtp name="default">
+      <property name="host">smtp.126.com</property>
+      <property name="port">25</property>
+      <property name="ssl">false</property>
+      <property name="from">simpleframework&lt;simpleframework@126.com&gt;</property>
+      <property name="username">simple</property>
+      <property name="password">simple</property>
+    </smtp>
+  </mail>
+  <notice-message>
+  </notice-message>
+</message-settings>

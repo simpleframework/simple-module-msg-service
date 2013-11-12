@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sql-script>
+  <version>1.0.0</version>
+  <name>script</name>
+  <description></description>
+  <tran-sql>
+    <![CDATA[
+      create table sf_msg_p2p (
+        id char(32) not null,
+        messagemark int not null,
+        createdate datetime not null,
+        fromid char(32),
+        category int not null,
+        topic varchar(128) not null,
+        content text not null,
+        tousers varchar(128),
+        userid char(32),
+        readdate datetime,
+        messagestatus smallint not null,
+        primary key(id)
+      );
+    ]]>
+  </tran-sql>
+  <tran-sql>
+    <![CDATA[
+      create table sf_msg_p2plog (
+        id char(32) not null,
+        messagemark int not null,
+        createdate datetime not null,
+        fromid char(32),
+        category int not null,
+        topic varchar(128) not null,
+        content text not null,
+        tousers varchar(128),
+        userid char(32),
+        messagesendto smallint not null,
+        primary key(id)
+      );
+    ]]>
+  </tran-sql> 
+  <tran-sql>
+    <![CDATA[
+      create table sf_msg_subscribe (
+        id char(32) not null,
+        messagemark int not null,
+        createdate datetime not null,
+        category int not null,
+        fromid char(32),
+        topic varchar(128) not null,
+        content text not null,
+        primary key(id)
+      );
+    ]]>
+  </tran-sql>
+  <tran-sql>
+    <![CDATA[
+      create table sf_msg_subscribe_read (
+        id char(32) not null,
+        messageId char(32) not null,
+        userid char(32) not null,
+        readdate datetime,
+        deletedate datetime,
+        primary key(id)
+      );
+    ]]>
+  </tran-sql>
+</sql-script>

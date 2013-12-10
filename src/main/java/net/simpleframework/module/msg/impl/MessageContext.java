@@ -1,7 +1,8 @@
 package net.simpleframework.module.msg.impl;
 
 import static net.simpleframework.common.I18n.$m;
-import net.simpleframework.ado.db.DbEntityTable;
+import net.simpleframework.ado.IADOManagerFactory;
+import net.simpleframework.ado.db.DbManagerFactory;
 import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.Module;
 import net.simpleframework.ctx.permission.IPermissionConst;
@@ -30,13 +31,13 @@ public abstract class MessageContext extends AbstractCommonModuleContext impleme
 	public void onInit(final IApplicationContext application) throws Exception {
 		super.onInit(application);
 
-		getPluginRegistry().registPlugin(NoticeMessagePlugin.class);
-	}
+		final IADOManagerFactory aFactory = getADOManagerFactory();
+		if (aFactory instanceof DbManagerFactory) {
+			((DbManagerFactory) aFactory).regist(P2PMessage.TBL, SubscribeMessage.TBL,
+					SubscribeMessageRead.TBL, P2PMessageLog.TBL);
+		}
 
-	@Override
-	protected DbEntityTable[] getEntityTables() {
-		return new DbEntityTable[] { P2PMessage.TBL, SubscribeMessage.TBL, SubscribeMessageRead.TBL,
-				P2PMessageLog.TBL };
+		getPluginRegistry().registPlugin(NoticeMessagePlugin.class);
 	}
 
 	@Override

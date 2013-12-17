@@ -1,8 +1,8 @@
 package net.simpleframework.module.msg.impl;
 
 import static net.simpleframework.common.I18n.$m;
-import net.simpleframework.ado.IADOManagerFactory;
-import net.simpleframework.ado.db.DbManagerFactory;
+import net.simpleframework.ado.db.DbEntityTable;
+import net.simpleframework.ado.db.IDbEntityTableRegistry;
 import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.Module;
 import net.simpleframework.ctx.permission.IPermissionConst;
@@ -25,19 +25,20 @@ import net.simpleframework.module.msg.plugin.NoticeMessagePlugin;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class MessageContext extends AbstractCommonModuleContext implements IMessageContext {
+public abstract class MessageContext extends AbstractCommonModuleContext implements
+		IMessageContext, IDbEntityTableRegistry {
 
 	@Override
 	public void onInit(final IApplicationContext application) throws Exception {
 		super.onInit(application);
 
-		final IADOManagerFactory aFactory = getADOManagerFactory();
-		if (aFactory instanceof DbManagerFactory) {
-			((DbManagerFactory) aFactory).regist(P2PMessage.TBL, SubscribeMessage.TBL,
-					SubscribeMessageRead.TBL, P2PMessageLog.TBL);
-		}
-
 		getPluginRegistry().registPlugin(NoticeMessagePlugin.class);
+	}
+
+	@Override
+	public DbEntityTable[] createEntityTables() {
+		return new DbEntityTable[] { P2PMessage.TBL, SubscribeMessage.TBL, SubscribeMessageRead.TBL,
+				P2PMessageLog.TBL };
 	}
 
 	@Override

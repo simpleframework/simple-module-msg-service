@@ -20,7 +20,7 @@ public abstract class AbstractMessage extends AbstractIdBean {
 	private ID fromId;
 
 	/* 分类 */
-	private int category;
+	private String category;
 
 	/* 标题 */
 	private String topic;
@@ -47,11 +47,11 @@ public abstract class AbstractMessage extends AbstractIdBean {
 		this.fromId = fromId;
 	}
 
-	public int getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(final int category) {
+	public void setCategory(final String category) {
 		this.category = category;
 	}
 

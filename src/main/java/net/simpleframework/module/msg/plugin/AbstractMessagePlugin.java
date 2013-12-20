@@ -15,38 +15,33 @@ import net.simpleframework.module.msg.IMessageContextAware;
  *         http://www.simpleframework.net
  */
 public abstract class AbstractMessagePlugin extends AbstractModulePlugin implements IMessagePlugin,
-		IMessageCategoryPlugin, IMessageContextAware {
+		IMessageContextAware {
 
-	protected Map<Integer, IMessageCategoryPlugin> categoryCache;
+	protected Map<String, IMessageCategory> categoryCache;
 	{
-		categoryCache = new HashMap<Integer, IMessageCategoryPlugin>();
+		categoryCache = new HashMap<String, IMessageCategory>();
 	}
 
 	@Override
-	public void registMessageCategoryPlugin(final IMessageCategoryPlugin mCategory) {
-		final int key = mCategory.getMark();
-		if (categoryCache.get(key) != null) {
-		}
-		categoryCache.put(key, mCategory);
+	public void registMessageCategory(final IMessageCategory mCategory) {
+		final String name = mCategory.getName();
+		// if (categoryCache.get(key) != null) {
+		// }
+		categoryCache.put(name, mCategory);
 	}
 
 	@Override
-	public Collection<IMessageCategoryPlugin> allMessageCategoryPlugins() {
+	public Collection<IMessageCategory> allMessageCategory() {
 		return categoryCache.values();
 	}
 
 	@Override
-	public IMessageCategoryPlugin getMessageCategoryPlugin(final int mark) {
-		return categoryCache.get(mark);
+	public IMessageCategory getMessageCategory(final String name) {
+		return categoryCache.get(name);
 	}
 
 	@Override
 	public Object getFrom(final ID fromId) {
-		return null;
-	}
-
-	@Override
-	public Collection<IMessageCategoryPlugin> getChildren() {
 		return null;
 	}
 }

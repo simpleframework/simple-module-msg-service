@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.module.msg.EMessageStatus;
 import net.simpleframework.module.msg.IP2PMessageService;
 import net.simpleframework.module.msg.P2PMessage;
 
@@ -53,11 +52,21 @@ public class P2PMessageService extends AbstractMessageService<P2PMessage> implem
 
 	@Override
 	public IDataQuery<P2PMessage> queryMessages(final Object userId, final Boolean read,
-			final int category) {
-		String expr = "userid=? and messagestatus=?";
+			final String category) {
+		return _queryMessages(userId, false, read, category);
+	}
+
+	@Override
+	public IDataQuery<P2PMessage> queryFromMessages(final Object userId, final Boolean read,
+			final String category) {
+		return _queryMessages(userId, true, read, category);
+	}
+
+	private IDataQuery<P2PMessage> _queryMessages(final Object userId, final boolean from,
+			final Boolean read, final String category) {
+		String expr = from ? "fromId=?" : "userId=?";
 		final ArrayList<Object> al = new ArrayList<Object>();
 		al.add(userId);
-		al.add(EMessageStatus.S_VIEW);
 		final int mark = getMark();
 		if (mark != 0) {
 			expr += " and messagemark=?";
@@ -70,35 +79,9 @@ public class P2PMessageService extends AbstractMessageService<P2PMessage> implem
 				expr += " and readdate is null";
 			}
 		}
-		if (category != 0) {
+		if (category != null) {
 			expr += " and category=?";
 			al.add(category);
-		}
-		return query(expr + " order by createDate desc", al.toArray());
-	}
-
-	@Override
-	public IDataQuery<P2PMessage> querySentMessages(final int mark, final Object userId) {
-		String expr = "fromId=? and messagestatus=?";
-		final ArrayList<Object> al = new ArrayList<Object>();
-		al.add(userId);
-		al.add(EMessageStatus.S_COPY);
-		if (mark != 0) {
-			expr += " and messagemark=?";
-			al.add(mark);
-		}
-		return query(expr + " order by createDate desc", al.toArray());
-	}
-
-	@Override
-	public IDataQuery<P2PMessage> queryDraftMessages(final int mark, final Object userId) {
-		String expr = "fromId=? and messagestatus=?";
-		final ArrayList<Object> al = new ArrayList<Object>();
-		al.add(userId);
-		al.add(EMessageStatus.S_EDIT);
-		if (mark != 0) {
-			expr += " and messagemark=?";
-			al.add(mark);
 		}
 		return query(expr + " order by createDate desc", al.toArray());
 	}

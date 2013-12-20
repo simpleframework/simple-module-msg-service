@@ -102,7 +102,7 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 
 	@Override
 	public IDataQuery<SubscribeMessage> queryMessages(final Object userId, final Boolean read,
-			final int category) {
+			final String category) {
 		String sql = JOIN_SQL + "a.messagemark=? and b.deletedate is null";
 		Object[] params = new Object[] { userId, getMark() };
 		if (read != null) {
@@ -112,7 +112,7 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 				sql += " and b.readdate is null";
 			}
 		}
-		if (category != 0) {
+		if (category != null) {
 			sql += " and a.category=?";
 			params = ArrayUtils.add(params, category);
 		}

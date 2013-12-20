@@ -3,7 +3,6 @@ package net.simpleframework.module.msg.impl;
 import java.util.ArrayList;
 
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.common.th.NotImplementedException;
 import net.simpleframework.module.msg.EMessageSendTo;
 import net.simpleframework.module.msg.IP2PMessageLogService;
 import net.simpleframework.module.msg.P2PMessageLog;
@@ -32,13 +31,6 @@ public class P2PMessageLogService extends AbstractMessageService<P2PMessageLog> 
 	@Override
 	public int getUnreadMessageCount(final Object userId) {
 		return 0;
-	}
-
-	@Override
-	public IDataQuery<P2PMessageLog> queryMessages(final Object userId, final Boolean read,
-			final int category) {
-		throw NotImplementedException.of(getClass(),
-				"queryMessages(Object userId, Boolean read, int category);");
 	}
 
 	@Override

@@ -6,8 +6,8 @@ import java.util.Map;
 
 import net.simpleframework.ado.db.common.SQLValue;
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.common.Convert;
 import net.simpleframework.common.coll.ArrayUtils;
+import net.simpleframework.common.th.NotImplementedException;
 import net.simpleframework.ctx.service.ado.db.AbstractDbBeanService;
 import net.simpleframework.module.common.bean.CategoryStat;
 import net.simpleframework.module.msg.AbstractMessage;
@@ -48,7 +48,7 @@ public abstract class AbstractMessageService<T extends AbstractMessage> extends
 
 	@Override
 	public void doAllRead(final Object userId) {
-		final IDataQuery<T> dq = queryMessages(userId, false, 0);
+		final IDataQuery<T> dq = queryMessages(userId, false);
 		T msg;
 		while ((msg = dq.next()) != null) {
 			doRead(userId, msg);
@@ -58,6 +58,24 @@ public abstract class AbstractMessageService<T extends AbstractMessage> extends
 	@Override
 	public int doDelete(final Object userId, final Object[] ids) {
 		return delete(ids);
+	}
+
+	@Override
+	public IDataQuery<T> queryMessages(final Object userId, final Boolean read) {
+		return queryMessages(userId, read, null);
+	}
+
+	@Override
+	public IDataQuery<T> queryMessages(final Object userId, final Boolean read, final String category) {
+		throw NotImplementedException.of(getClass(),
+				"queryMessages(Object userId, Boolean read, String category);");
+	}
+
+	@Override
+	public IDataQuery<T> queryFromMessages(final Object userId, final Boolean read,
+			final String category) {
+		throw NotImplementedException.of(getClass(),
+				"queryFromMessages(Object userId, Boolean read, String category);");
 	}
 
 	@Override
@@ -73,14 +91,11 @@ public abstract class AbstractMessageService<T extends AbstractMessage> extends
 				sql += " and messagemark=?";
 				params = ArrayUtils.add(params, mark);
 			}
-			sql += " group by category";
+			sql += " and category is not null group by category";
 			final IDataQuery<Map<String, Object>> dq = getQueryManager().query(
 					new SQLValue(sql, params));
 			for (Map<String, Object> m; (m = dq.next()) != null;) {
-				final int category = Convert.toInt(m.get("category"));
-				if (category == 0) {
-					continue;
-				}
+				final String category = (String) m.get("category");
 				l.add(new CategoryStat(category, m.get("cc")));
 			}
 		}

@@ -25,5 +25,5 @@ public interface ISubscribeMessagePlugin extends IMessagePlugin {
 	 * @param category
 	 * @return
 	 */
-	SubscribeMessage sentMessage(ID fromId, String topic, String content, int category);
+	SubscribeMessage sentMessage(ID fromId, String topic, String content, String name);
 }

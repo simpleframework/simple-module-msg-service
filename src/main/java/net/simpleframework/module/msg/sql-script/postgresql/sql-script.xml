@@ -10,13 +10,12 @@
         messagemark int4 not null,
         createdate timestamp not null,
         fromid char(32),
-        category int4 not null,
+        category varchar(32),
         topic varchar(128) not null,
         content text not null,       
         tousers varchar(128),
         userid char(32),
         readdate timestamp,
-        messagestatus int2 not null,
         primary key(id)
       );
     ]]>
@@ -28,7 +27,7 @@
         messagemark int4 not null,
         createdate timestamp not null,
         fromid char(32),
-        category int4 not null,
+        category varchar(32),
         topic varchar(128) not null,
         content text not null,       
         tousers varchar(128),
@@ -45,7 +44,7 @@
         id char(32) not null,
         messagemark int4 not null,
         createdate timestamp not null,
-        category int4 not null,
+        category varchar(32),
         fromId char(32),
         topic varchar(128) not null,
         content text not null,

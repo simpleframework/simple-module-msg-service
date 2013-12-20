@@ -2,6 +2,7 @@ package net.simpleframework.module.msg.plugin;
 
 import java.util.Collection;
 
+import net.simpleframework.common.ID;
 import net.simpleframework.module.common.plugin.IModulePlugin;
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.IMessageService;
@@ -26,17 +27,28 @@ public interface IMessagePlugin extends IModulePlugin {
 	 * 
 	 * @param mCategory
 	 */
-	void registMessageCategoryPlugin(IMessageCategoryPlugin mCategory);
+	void registMessageCategory(IMessageCategory mCategory);
 
 	/**
 	 * 获取类目
 	 * 
-	 * @param category
+	 * @param name
 	 * @return
 	 */
-	IMessageCategoryPlugin getMessageCategoryPlugin(int categoryMark);
+	IMessageCategory getMessageCategory(String name);
 
-	Collection<IMessageCategoryPlugin> allMessageCategoryPlugins();
+	/**
+	 * 获取所有注册的消息类目
+	 * 
+	 * @return
+	 */
+	Collection<IMessageCategory> allMessageCategory();
 
-	Collection<IMessageCategoryPlugin> getChildren();
+	/**
+	 * 获取来源(发送人)对象
+	 * 
+	 * @param fromId
+	 * @return
+	 */
+	Object getFrom(ID fromId);
 }

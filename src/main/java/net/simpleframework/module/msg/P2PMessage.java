@@ -14,19 +14,8 @@ import net.simpleframework.ado.db.common.EntityInterceptor;
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
 public class P2PMessage extends AbstractP2PMessage {
 
-	/* 消息状态 */
-	private EMessageStatus messageStatus;
-
 	/* 阅读时间 */
 	private Date readDate;
-
-	public EMessageStatus getMessageStatus() {
-		return messageStatus == null ? EMessageStatus.S_VIEW : messageStatus;
-	}
-
-	public void setMessageStatus(final EMessageStatus messageStatus) {
-		this.messageStatus = messageStatus;
-	}
 
 	public Date getReadDate() {
 		return readDate;

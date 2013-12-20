@@ -15,15 +15,20 @@ public abstract class AbstractSubscribeMessagePlugin extends AbstractMessagePlug
 		ISubscribeMessagePlugin {
 
 	@Override
+	public Object getFrom(final ID fromId) {
+		return getText();
+	}
+
+	@Override
 	public SubscribeMessage sentMessage(final ID fromId, final String topic, final String content,
-			final int category) {
+			final String name) {
 		final SubscribeMessage msg = new SubscribeMessage();
 		msg.setCreateDate(new Date());
 		msg.setMessageMark(getMark());
 		msg.setFromId(fromId);
 		msg.setTopic(topic);
 		msg.setContent(content);
-		msg.setCategory(category);
+		msg.setCategory(name);
 		getMessageService().insert(msg);
 		return msg;
 	}

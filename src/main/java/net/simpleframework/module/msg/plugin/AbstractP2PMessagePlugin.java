@@ -29,12 +29,12 @@ public abstract class AbstractP2PMessagePlugin extends AbstractMessagePlugin imp
 	@Override
 	public P2PMessage sentMessage(final ID toId, final ID fromId, final String topic,
 			final String content) {
-		return sentMessage(toId, fromId, topic, content, 0);
+		return sentMessage(toId, fromId, topic, content, null);
 	}
 
 	@Override
 	public P2PMessage sentMessage(final ID toId, final ID fromId, final String topic,
-			final String content, final int category) {
+			final String content, final String category) {
 		final P2PMessage msg = new P2PMessage();
 		msg.setUserId(toId);
 		msg.setCreateDate(new Date());

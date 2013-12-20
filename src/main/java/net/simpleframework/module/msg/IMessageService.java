@@ -63,14 +63,28 @@ public interface IMessageService<T extends AbstractMessage> extends IDbBeanServi
 	 */
 	int doDelete(Object userId, Object[] ids);
 
+	IDataQuery<T> queryMessages(Object userId, Boolean read);
+
 	/**
+	 * 查询接收者的消息
+	 * 
 	 * @param userId
 	 * @param read
 	 *           null 全部; true 已读; false 未读
 	 * @param category
 	 * @return
 	 */
-	IDataQuery<T> queryMessages(Object userId, Boolean read, int category);
+	IDataQuery<T> queryMessages(Object userId, Boolean read, String category);
+
+	/**
+	 * 查询发送者的消息
+	 * 
+	 * @param userId
+	 * @param read
+	 * @param category
+	 * @return
+	 */
+	IDataQuery<T> queryFromMessages(Object userId, Boolean read, String category);
 
 	/**
 	 * 按mark查询消息

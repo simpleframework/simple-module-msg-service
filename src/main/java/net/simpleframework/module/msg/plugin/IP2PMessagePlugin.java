@@ -16,6 +16,11 @@ public interface IP2PMessagePlugin extends IMessagePlugin {
 	@Override
 	IP2PMessageService getMessageService();
 
+	/**
+	 * 获取消息日志服务
+	 * 
+	 * @return
+	 */
 	IP2PMessageLogService getMessageLogService();
 
 	P2PMessage sentMessage(ID toId, ID fromId, String topic, String content);
@@ -31,5 +36,5 @@ public interface IP2PMessagePlugin extends IMessagePlugin {
 	 * @param category
 	 * @return
 	 */
-	P2PMessage sentMessage(ID toId, ID fromId, String topic, String content, int category);
+	P2PMessage sentMessage(ID toId, ID fromId, String topic, String content, String category);
 }

@@ -44,7 +44,7 @@
       <artifactId>simple-module-common</artifactId>
       <version>4.0-SNAPSHOT</version>
     </dependency>
-    
+        
     <dependency>
       <groupId>javax.mail</groupId>
       <artifactId>mail</artifactId>

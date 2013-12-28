@@ -19,7 +19,7 @@ public class MessageException extends ModuleException {
 	}
 
 	public static MessageException of(final Throwable throwable) {
-		return (MessageException) _of(MessageException.class, null, throwable);
+		return _of(MessageException.class, null, throwable);
 	}
 
 	private static final long serialVersionUID = 8964555866578533829L;

@@ -60,10 +60,8 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 		String email;
 		if (mCategory.isSendTo_email()
 				&& StringUtils.hasText(email = PermissionFactory.get().getUser(toId).getEmail())) {
-			context.getEmailService()
-					.sentMail(
-							Email.create().to(email).subject(topic)
-									.addHtml(HtmlUtils.convertHtmlLines(content)));
+			context.getEmailService().sentMail(
+					Email.of(email).subject(topic).addHtml(HtmlUtils.convertHtmlLines(content)));
 			// 插入发送日志
 			final P2PMessageLog log = new P2PMessageLog();
 			log.setUserId(toId);

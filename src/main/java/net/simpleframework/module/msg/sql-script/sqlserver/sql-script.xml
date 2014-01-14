@@ -32,7 +32,7 @@
         content text not null,
         tousers varchar(128),
         userid char(32),
-        messagesendto smallint not null,
+        messagesendto tinyint not null,
         primary key(id)
       );
     ]]>

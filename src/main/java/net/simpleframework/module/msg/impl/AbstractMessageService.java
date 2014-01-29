@@ -84,8 +84,8 @@ public abstract class AbstractMessageService<T extends AbstractMessage> extends
 		if (userId != null) {
 			Object[] params = new Object[] { userId };
 			String sql = "select category, count(*) as cc from "
-					+ (this instanceof P2PMessageService ? P2PMessage.TBL.getName()
-							: SubscribeMessage.TBL.getName()) + " where userId=?";
+					+ (this instanceof P2PMessageService ? getTablename(P2PMessage.class)
+							: getTablename(SubscribeMessage.class)) + " where userId=?";
 			final int mark = getMark();
 			if (mark != 0) {
 				sql += " and messagemark=?";

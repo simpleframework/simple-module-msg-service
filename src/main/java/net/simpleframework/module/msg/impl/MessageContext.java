@@ -37,8 +37,10 @@ public abstract class MessageContext extends AbstractCommonModuleContext impleme
 
 	@Override
 	public DbEntityTable[] createEntityTables() {
-		return new DbEntityTable[] { P2PMessage.TBL, SubscribeMessage.TBL, SubscribeMessageRead.TBL,
-				P2PMessageLog.TBL };
+		return new DbEntityTable[] { new DbEntityTable(P2PMessage.class, "sf_msg_p2p"),
+				new DbEntityTable(SubscribeMessage.class, "sf_msg_subscribe"),
+				new DbEntityTable(SubscribeMessageRead.class, "sf_msg_subscribe_read"),
+				new DbEntityTable(P2PMessageLog.class, "sf_msg_p2plog") };
 	}
 
 	@Override

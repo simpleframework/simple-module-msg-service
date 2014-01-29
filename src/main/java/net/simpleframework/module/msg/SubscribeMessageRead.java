@@ -3,7 +3,6 @@ package net.simpleframework.module.msg;
 import java.util.Date;
 
 import net.simpleframework.ado.bean.AbstractIdBean;
-import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.common.ID;
 
 /**
@@ -57,9 +56,6 @@ public class SubscribeMessageRead extends AbstractIdBean {
 	public void setDeleteDate(final Date deleteDate) {
 		this.deleteDate = deleteDate;
 	}
-
-	public static final DbEntityTable TBL = new DbEntityTable(SubscribeMessageRead.class,
-			"sf_msg_subscribe_read");
 
 	private static final long serialVersionUID = -7017211305566124073L;
 }

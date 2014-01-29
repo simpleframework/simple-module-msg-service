@@ -1,7 +1,5 @@
 package net.simpleframework.module.msg;
 
-import net.simpleframework.ado.db.DbEntityTable;
-
 /**
  * Licensed under the Apache License, Version 2.0
  * 
@@ -20,8 +18,6 @@ public class P2PMessageLog extends AbstractP2PMessage {
 	public void setMessageSendTo(final EMessageSendTo messageSendTo) {
 		this.messageSendTo = messageSendTo;
 	}
-
-	public static final DbEntityTable TBL = new DbEntityTable(P2PMessageLog.class, "sf_msg_p2plog");
 
 	private static final long serialVersionUID = -2346927508684737354L;
 }

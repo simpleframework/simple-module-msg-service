@@ -82,8 +82,8 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 		return c;
 	}
 
-	private static String JOIN_SQL = "select a.* from " + SubscribeMessage.TBL.getName()
-			+ " a left join " + SubscribeMessageRead.TBL.getName()
+	private final String JOIN_SQL = "select a.* from " + getTablename(SubscribeMessage.class)
+			+ " a left join " + getTablename(SubscribeMessageRead.class)
 			+ " b on (a.id=b.messageid and b.userid=?) where ";
 
 	@Override

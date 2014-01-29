@@ -1,6 +1,5 @@
 package net.simpleframework.module.msg;
 
-import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ado.db.common.EntityInterceptor;
 
 /**
@@ -11,9 +10,6 @@ import net.simpleframework.ado.db.common.EntityInterceptor;
  */
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
 public class SubscribeMessage extends AbstractMessage {
-
-	public static final DbEntityTable TBL = new DbEntityTable(SubscribeMessage.class,
-			"sf_msg_subscribe");
 
 	private static final long serialVersionUID = 1657141244991016933L;
 }

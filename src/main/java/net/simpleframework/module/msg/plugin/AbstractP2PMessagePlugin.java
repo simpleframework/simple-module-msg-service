@@ -3,7 +3,6 @@ package net.simpleframework.module.msg.plugin;
 import java.util.Date;
 
 import net.simpleframework.common.ID;
-import net.simpleframework.ctx.permission.PermissionFactory;
 import net.simpleframework.module.msg.IP2PMessageLogService;
 import net.simpleframework.module.msg.P2PMessage;
 
@@ -23,7 +22,7 @@ public abstract class AbstractP2PMessagePlugin extends AbstractMessagePlugin imp
 
 	@Override
 	public Object getFrom(final ID fromId) {
-		return PermissionFactory.get().getUser(fromId);
+		return context.getPermission().getUser(fromId);
 	}
 
 	@Override

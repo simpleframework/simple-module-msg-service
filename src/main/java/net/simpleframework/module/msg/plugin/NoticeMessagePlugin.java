@@ -9,7 +9,6 @@ import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.mail.Email;
 import net.simpleframework.common.web.html.HtmlUtils;
-import net.simpleframework.ctx.permission.PermissionFactory;
 import net.simpleframework.module.msg.EMessageSendTo;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.IP2PMessageService;
@@ -59,7 +58,7 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 		// email
 		String email;
 		if (mCategory.isSendTo_email()
-				&& StringUtils.hasText(email = PermissionFactory.get().getUser(toId).getEmail())) {
+				&& StringUtils.hasText(email = context.getPermission().getUser(toId).getEmail())) {
 			context.getEmailService().sentMail(
 					Email.of(email).subject(topic).addHtml(HtmlUtils.convertHtmlLines(content)));
 			// 插入发送日志

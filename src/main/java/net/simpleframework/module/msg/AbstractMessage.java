@@ -1,8 +1,6 @@
 package net.simpleframework.module.msg;
 
-import java.util.Date;
-
-import net.simpleframework.ado.bean.AbstractIdBean;
+import net.simpleframework.ado.bean.AbstractDateAwareBean;
 import net.simpleframework.common.ID;
 
 /**
@@ -12,7 +10,7 @@ import net.simpleframework.common.ID;
  *         http://www.simpleframework.net
  */
 @SuppressWarnings("serial")
-public abstract class AbstractMessage extends AbstractIdBean {
+public abstract class AbstractMessage extends AbstractDateAwareBean {
 	/* 通知源标识 */
 	private int messageMark;
 
@@ -27,9 +25,6 @@ public abstract class AbstractMessage extends AbstractIdBean {
 
 	/* 正文内容 */
 	private String content;
-
-	/* 创建时间 */
-	private Date createDate;
 
 	public int getMessageMark() {
 		return messageMark;
@@ -69,14 +64,6 @@ public abstract class AbstractMessage extends AbstractIdBean {
 
 	public void setContent(final String content) {
 		this.content = content;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(final Date createDate) {
-		this.createDate = createDate;
 	}
 
 	@Override

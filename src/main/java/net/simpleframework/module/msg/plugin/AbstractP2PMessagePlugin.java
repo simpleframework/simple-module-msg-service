@@ -17,12 +17,12 @@ public abstract class AbstractP2PMessagePlugin extends AbstractMessagePlugin imp
 
 	@Override
 	public IP2PMessageLogService getMessageLogService() {
-		return context.getP2PMessageLogService();
+		return messageContext.getP2PMessageLogService();
 	}
 
 	@Override
 	public Object getFrom(final ID fromId) {
-		return context.getPermission().getUser(fromId);
+		return messageContext.getPermission().getUser(fromId);
 	}
 
 	@Override

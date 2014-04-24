@@ -47,7 +47,7 @@ public class NoticeMessageCategory extends AbstractMessageCategory implements IM
 	}
 
 	private Map<String, Object> getProps() {
-		return context.getContextSettings().getNoticeMessageCategoryProps(getName());
+		return messageContext.getContextSettings().getNoticeMessageCategoryProps(getName());
 	}
 
 	public boolean isSendTo_normal() {

@@ -11,5 +11,5 @@ import net.simpleframework.ctx.ModuleContextFactory;
  */
 public interface IMessageContextAware extends IModuleContextAware {
 
-	static IMessageContext context = ModuleContextFactory.get(IMessageContext.class);
+	static IMessageContext messageContext = ModuleContextFactory.get(IMessageContext.class);
 }

@@ -122,6 +122,8 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 
 	@Override
 	public void onInit() throws Exception {
+		super.onInit();
+
 		addListener(new DbEntityAdapterEx() {
 			@Override
 			public void onBeforeDelete(final IDbEntityManager<?> manager,

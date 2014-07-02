@@ -70,7 +70,7 @@ public interface IMessageService<T extends AbstractMessage> extends IDbBeanServi
 	 * 
 	 * @param userId
 	 * @param read
-	 *           null 全部; true 已读; false 未读
+	 *        null 全部; true 已读; false 未读
 	 * @param category
 	 * @return
 	 */

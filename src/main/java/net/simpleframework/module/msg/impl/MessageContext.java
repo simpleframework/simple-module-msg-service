@@ -5,7 +5,6 @@ import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ado.db.IDbEntityTableRegistry;
 import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.Module;
-import net.simpleframework.ctx.permission.IPermissionConst;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
 import net.simpleframework.module.msg.IEmailService;
 import net.simpleframework.module.msg.IMessageContext;
@@ -50,11 +49,6 @@ public abstract class MessageContext extends AbstractCommonModuleContext impleme
 
 	@Override
 	public abstract MessageContextSettings getContextSettings();
-
-	@Override
-	public String getManagerRole() {
-		return IPermissionConst.ROLE_MANAGER;
-	}
 
 	@Override
 	public IP2PMessageService getP2PMessageService() {

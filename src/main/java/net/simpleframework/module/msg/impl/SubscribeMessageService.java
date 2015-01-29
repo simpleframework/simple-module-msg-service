@@ -116,8 +116,7 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 			sql += " and a.category=?";
 			params = ArrayUtils.add(params, category);
 		}
-		return getEntityManager().queryBeans(
-				new SQLValue(sql + " order by a.createDate desc", params));
+		return query(new SQLValue(sql + " order by a.createDate desc", params));
 	}
 
 	@Override

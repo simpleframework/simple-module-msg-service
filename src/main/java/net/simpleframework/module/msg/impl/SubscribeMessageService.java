@@ -126,7 +126,7 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 		addListener(new DbEntityAdapterEx() {
 			@Override
 			public void onBeforeDelete(final IDbEntityManager<?> manager,
-					final IParamsValue paramsValue) {
+					final IParamsValue paramsValue) throws Exception {
 				super.onBeforeDelete(manager, paramsValue);
 				final IDbEntityManager<SubscribeMessageRead> service = getEntityManager(SubscribeMessageRead.class);
 				for (final SubscribeMessage message : coll(paramsValue)) {

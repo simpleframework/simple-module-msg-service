@@ -17,10 +17,12 @@ import net.simpleframework.ctx.settings.XmlContextSettings;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class MessageContextSettings extends XmlContextSettings {
+public abstract class MessageContextSettings extends XmlContextSettings implements
+		IMessageContextAware {
 
 	public MessageContextSettings(final File file) throws FileNotFoundException {
 		super(file);
+		setApplicationSettings(messageContext.getApplicationContext().getContextSettings());
 	}
 
 	@Override

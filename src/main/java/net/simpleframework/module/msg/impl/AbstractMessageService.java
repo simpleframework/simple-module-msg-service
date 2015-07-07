@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import net.simpleframework.ado.db.common.SQLValue;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.coll.ArrayUtils;
 import net.simpleframework.common.th.NotImplementedException;
@@ -92,8 +91,7 @@ public abstract class AbstractMessageService<T extends AbstractMessage> extends
 				params = ArrayUtils.add(params, mark);
 			}
 			sql += " and category is not null group by category";
-			final IDataQuery<Map<String, Object>> dq = getQueryManager().query(
-					new SQLValue(sql, params));
+			final IDataQuery<Map<String, Object>> dq = getQueryManager().query(sql, params);
 			for (Map<String, Object> m; (m = dq.next()) != null;) {
 				final String category = (String) m.get("category");
 				l.add(new CategoryStat(category, m.get("cc")));

@@ -123,13 +123,13 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 	public void onInit() throws Exception {
 		super.onInit();
 
-		addListener(new DbEntityAdapterEx() {
+		addListener(new DbEntityAdapterEx<SubscribeMessage>() {
 			@Override
-			public void onBeforeDelete(final IDbEntityManager<?> manager,
+			public void onBeforeDelete(final IDbEntityManager<SubscribeMessage> manager,
 					final IParamsValue paramsValue) throws Exception {
 				super.onBeforeDelete(manager, paramsValue);
 				final IDbEntityManager<SubscribeMessageRead> service = getEntityManager(SubscribeMessageRead.class);
-				for (final SubscribeMessage message : coll(paramsValue)) {
+				for (final SubscribeMessage message : coll(manager, paramsValue)) {
 					service.delete(new ExpressionValue("messageid=?", message.getId()));
 				}
 			}

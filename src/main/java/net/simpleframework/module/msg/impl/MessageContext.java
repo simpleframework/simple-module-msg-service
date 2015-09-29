@@ -2,7 +2,6 @@ package net.simpleframework.module.msg.impl;
 
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.ado.db.DbEntityTable;
-import net.simpleframework.ado.db.IDbEntityTableRegistry;
 import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.Module;
 import net.simpleframework.module.common.AbstractCommonModuleContext;
@@ -24,8 +23,7 @@ import net.simpleframework.module.msg.plugin.NoticeMessagePlugin;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class MessageContext extends AbstractCommonModuleContext implements
-		IMessageContext, IDbEntityTableRegistry {
+public abstract class MessageContext extends AbstractCommonModuleContext implements IMessageContext {
 
 	@Override
 	public void onInit(final IApplicationContext application) throws Exception {
@@ -35,7 +33,7 @@ public abstract class MessageContext extends AbstractCommonModuleContext impleme
 	}
 
 	@Override
-	public DbEntityTable[] createEntityTables() {
+	protected DbEntityTable[] createEntityTables() {
 		return new DbEntityTable[] { new DbEntityTable(P2PMessage.class, "sf_msg_p2p"),
 				new DbEntityTable(SubscribeMessage.class, "sf_msg_subscribe"),
 				new DbEntityTable(SubscribeMessageRead.class, "sf_msg_subscribe_read"),

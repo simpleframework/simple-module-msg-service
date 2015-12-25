@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg;
 
 import net.simpleframework.ado.bean.AbstractDateAwareBean;
+import net.simpleframework.ado.bean.IDomainBeanAware;
 import net.simpleframework.common.ID;
 
 /**
@@ -10,7 +11,10 @@ import net.simpleframework.common.ID;
  *         http://www.simpleframework.net
  */
 @SuppressWarnings("serial")
-public abstract class AbstractMessage extends AbstractDateAwareBean {
+public abstract class AbstractMessage extends AbstractDateAwareBean implements IDomainBeanAware {
+	/* 域id */
+	private ID domainId;
+
 	/* 通知源标识 */
 	private int messageMark;
 
@@ -25,6 +29,16 @@ public abstract class AbstractMessage extends AbstractDateAwareBean {
 
 	/* 正文内容 */
 	private String content;
+
+	@Override
+	public ID getDomainId() {
+		return domainId;
+	}
+
+	@Override
+	public void setDomainId(final ID domainId) {
+		this.domainId = domainId;
+	}
 
 	public int getMessageMark() {
 		return messageMark;

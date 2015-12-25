@@ -7,6 +7,7 @@
     <![CDATA[
       create table sf_msg_p2p (
         id char(32) not null,
+        domainid char(32),
         messagemark int not null,
         createdate datetime not null,
         fromid char(32),
@@ -24,6 +25,7 @@
     <![CDATA[
       create table sf_msg_p2plog (
         id char(32) not null,
+        domainid char(32),
         messagemark int not null,
         createdate datetime not null,
         fromid char(32),
@@ -41,6 +43,7 @@
     <![CDATA[
       create table sf_msg_subscribe (
         id char(32) not null,
+        domainid char(32),
         messagemark int not null,
         createdate datetime not null,
         category varchar(32),

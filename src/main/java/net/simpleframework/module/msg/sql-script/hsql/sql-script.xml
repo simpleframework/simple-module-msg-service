@@ -12,7 +12,7 @@
         fromid char(32),
         category varchar(32),
         topic varchar(128) not null,     
-        content clob not null,
+        content clob,
         tousers varchar(128),
         userid char(32),
         readdate timestamp,

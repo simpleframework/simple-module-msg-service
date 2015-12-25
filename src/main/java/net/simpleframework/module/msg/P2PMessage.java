@@ -12,9 +12,11 @@ import net.simpleframework.ado.db.common.EntityInterceptor;
  */
 @EntityInterceptor(listenerTypes = { "net.simpleframework.module.log.EntityDeleteLogAdapter" })
 public class P2PMessage extends AbstractP2PMessage {
-
 	/* 阅读时间 */
 	private Date readDate;
+
+	/* 实际发送时间 */
+	private Date sentDate;
 
 	public Date getReadDate() {
 		return readDate;
@@ -22,6 +24,14 @@ public class P2PMessage extends AbstractP2PMessage {
 
 	public void setReadDate(final Date readDate) {
 		this.readDate = readDate;
+	}
+
+	public Date getSentDate() {
+		return sentDate;
+	}
+
+	public void setSentDate(final Date sentDate) {
+		this.sentDate = sentDate;
 	}
 
 	private static final long serialVersionUID = -7886025628200387796L;

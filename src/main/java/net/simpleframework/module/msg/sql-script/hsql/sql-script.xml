@@ -16,6 +16,7 @@
         content clob,
         tousers varchar(128),
         userid char(32),
+        sentdate timestamp,
         readdate timestamp,
         primary key(id)
       );

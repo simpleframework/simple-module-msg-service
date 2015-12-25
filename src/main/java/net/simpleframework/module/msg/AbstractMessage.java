@@ -3,6 +3,7 @@ package net.simpleframework.module.msg;
 import net.simpleframework.ado.bean.AbstractDateAwareBean;
 import net.simpleframework.ado.bean.IDomainBeanAware;
 import net.simpleframework.common.ID;
+import net.simpleframework.common.StringUtils;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -73,7 +74,7 @@ public abstract class AbstractMessage extends AbstractDateAwareBean implements I
 	}
 
 	public String getContent() {
-		return content;
+		return StringUtils.blank(content);
 	}
 
 	public void setContent(final String content) {

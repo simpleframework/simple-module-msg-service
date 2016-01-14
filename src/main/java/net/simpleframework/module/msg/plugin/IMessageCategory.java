@@ -36,7 +36,7 @@ public interface IMessageCategory extends IObjectOrderAware {
 
 		@Override
 		public String getName() {
-			return StringUtils.hasText(name) ? name : getClass().getSimpleName();
+			return StringUtils.hasText(name) ? name.trim() : getClass().getSimpleName();
 		}
 
 		public void setName(final String name) {

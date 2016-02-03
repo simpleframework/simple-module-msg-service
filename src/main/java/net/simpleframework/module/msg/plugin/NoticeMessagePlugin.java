@@ -74,6 +74,11 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 			log.setToUsers(email);
 			getMessageLogService().insert(log);
 		}
+
+		// mobile
+		if (mCategory.isSendTo_mobile()) {
+		}
+
 		return msg;
 	}
 

@@ -50,6 +50,13 @@ public interface IMessageContext extends ICommonModuleContext {
 	 */
 	IEmailService getEmailService();
 
+	/**
+	 * 获取短信发送服务
+	 * 
+	 * @return
+	 */
+	ISMSService getSMSService();
+
 	MessagePluginRegistry getPluginRegistry();
 
 	NoticeMessagePlugin getNoticeMessagePlugin();

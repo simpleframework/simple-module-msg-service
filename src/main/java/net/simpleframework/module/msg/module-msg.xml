@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <message-settings>
-  <mail>
-    <smtp name="default">
-      <property name="host">smtp.126.com</property>
-      <property name="port">25</property>
-      <property name="ssl">false</property>
-      <property name="from">simpleframework&lt;simpleframework@126.com&gt;</property>
-      <property name="username">simple</property>
-      <property name="password">simple</property>
-    </smtp>
-  </mail>
+  <!-- 缺省邮件发送 -->
+  <mail-smtp name="default">
+    <property name="host"></property>
+    <property name="port"></property>
+    <property name="ssl"></property>
+    <property name="from"></property>
+    <property name="username"></property>
+    <property name="password"></property>
+  </mail-smtp>
+
+  <!-- 缺省短信发送 -->
+  <mobile-sms name="default">
+    <property name="provider"></property>
+    <property name="url"></property>
+  </mobile-sms>
+
+  <!-- 消息通知定义 -->
   <notice-message>
   </notice-message>
 </message-settings>

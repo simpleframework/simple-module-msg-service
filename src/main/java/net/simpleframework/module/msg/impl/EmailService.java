@@ -1,5 +1,7 @@
 package net.simpleframework.module.msg.impl;
 
+import static net.simpleframework.common.I18n.$m;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,9 +12,11 @@ import net.simpleframework.common.mail.SendMailSession;
 import net.simpleframework.common.mail.SmtpServer;
 import net.simpleframework.common.mail.SmtpSslServer;
 import net.simpleframework.ctx.service.AbstractBaseService;
+import net.simpleframework.ctx.task.ExecutorRunnableEx;
 import net.simpleframework.module.msg.IEmailService;
 import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.module.msg.MessageContextSettings;
+import net.simpleframework.module.msg.MessageException;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -24,12 +28,13 @@ public class EmailService extends AbstractBaseService implements IEmailService,
 		IMessageContextAware {
 
 	private final Map<String, SmtpServer> sCache = new HashMap<String, SmtpServer>();
+	private final Map<String, Boolean> ASYNCs = new HashMap<String, Boolean>();
 
 	private SmtpServer getSmtpServer(final String name) {
 		SmtpServer server = sCache.get(name);
 		if (server == null) {
 			final Map<String, Object> settings = ((MessageContextSettings) getModuleContext()
-					.getContextSettings()).getSMTPProps(name);
+					.getContextSettings()).getTagProps("mail-smtp", name);
 			if (settings == null) {
 				return null;
 			}
@@ -45,20 +50,13 @@ public class EmailService extends AbstractBaseService implements IEmailService,
 				server = new SmtpServer(host, port);
 			}
 			server.setFrom((String) settings.get("from"));
+			ASYNCs.put(name, Convert.toBool(settings.get("async")));
 			sCache.put(name, server);
 		}
 		return server;
 	}
 
-	@Override
-	public void sentMail(String smtp, final Email... emails) {
-		if (!StringUtils.hasText(smtp)) {
-			smtp = "default";
-		}
-		final SmtpServer server = getSmtpServer(smtp);
-		if (server == null) {
-			return;
-		}
+	private void _sent(final SmtpServer server, final Email... emails) {
 		final SendMailSession session = server.createSession();
 		try {
 			session.open();
@@ -71,6 +69,28 @@ public class EmailService extends AbstractBaseService implements IEmailService,
 			}
 		} finally {
 			session.close();
+		}
+	}
+
+	@Override
+	public void sentMail(String smtp, final Email... emails) {
+		if (!StringUtils.hasText(smtp)) {
+			smtp = "default";
+		}
+		final SmtpServer server = getSmtpServer(smtp);
+		if (server == null) {
+			throw MessageException.of($m("EmailService.0", "mail-smtp:" + smtp));
+		}
+
+		if (ASYNCs.get(smtp)) {
+			getTaskExecutor().execute(new ExecutorRunnableEx("msg_sent_email", $m("EmailService.1")) {
+				@Override
+				protected void task(final Map<String, Object> cache) throws Exception {
+					_sent(server, emails);
+				}
+			});
+		} else {
+			_sent(server, emails);
 		}
 	}
 

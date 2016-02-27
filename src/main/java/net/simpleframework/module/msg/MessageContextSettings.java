@@ -30,22 +30,18 @@ public abstract class MessageContextSettings extends XmlContextSettings implemen
 		return "message-settings";
 	}
 
-	public Map<String, Object> getSMTPProps(final String smtp) {
-		KVMap kv = (KVMap) getAttr(smtp);
-		if (kv != null) {
-			return kv;
-		}
-		final Iterator<XmlElement> it = element("mail").elementIterator("smtp");
+	public Map<String, Object> getTagProps(final String tag, final String name) {
+		KVMap kv = new KVMap();
+		final Iterator<XmlElement> it = getRoot().elementIterator(tag);
 		while (it.hasNext()) {
 			final XmlElement ele = it.next();
-			if (smtp.equals(ele.attributeValue("name"))) {
+			if (name.equals(ele.attributeValue("name"))) {
 				kv = new KVMap();
 				final Iterator<XmlElement> it2 = ele.elementIterator();
 				while (it2.hasNext()) {
 					final XmlElement pEle = it2.next();
 					kv.add(pEle.attributeValue("name"), pEle.getText());
 				}
-				setAttr(smtp, kv);
 				break;
 			}
 		}
@@ -79,11 +75,12 @@ public abstract class MessageContextSettings extends XmlContextSettings implemen
 		category.addElement("property").addAttribute("name", "content")
 				.addCDATA(Convert.toString(props.get("content")).replace("\r\n", "\r"));
 		save();
-		removeAttr(name);
+		removeAttr("notice-message:" + name);
 	}
 
 	public Map<String, Object> getNoticeMessageCategoryProps(final String name) {
-		KVMap kv = (KVMap) getAttr(name);
+		final String key = "notice-message:" + name;
+		KVMap kv = (KVMap) getAttr(key);
 		if (kv != null) {
 			return kv;
 		}
@@ -97,7 +94,7 @@ public abstract class MessageContextSettings extends XmlContextSettings implemen
 					final XmlElement pEle = it2.next();
 					kv.add(pEle.attributeValue("name"), pEle.getText());
 				}
-				setAttr(name, kv);
+				setAttr(key, kv);
 				break;
 			}
 		}

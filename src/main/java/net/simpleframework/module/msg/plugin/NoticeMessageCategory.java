@@ -46,14 +46,10 @@ public class NoticeMessageCategory extends AbstractMessageCategory implements IM
 		return this;
 	}
 
-	private Map<String, Object> getProps() {
-		return messageContext.getContextSettings().getNoticeMessageCategoryProps(getName());
-	}
-
 	public boolean isSendTo_normal() {
-		final Map<String, Object> props = getProps();
-		if (props != null) {
-			return Convert.toBool(props.get("sendto-normal"), true);
+		final String val = getProp("sendto-normal");
+		if (val != null) {
+			return Convert.toBool(val);
 		}
 		return sendTo_normal;
 	}
@@ -64,9 +60,9 @@ public class NoticeMessageCategory extends AbstractMessageCategory implements IM
 	}
 
 	public boolean isSendTo_email() {
-		final Map<String, Object> props = getProps();
-		if (props != null) {
-			return Convert.toBool(props.get("sendto-email"));
+		final String val = getProp("sendto-email");
+		if (val != null) {
+			return Convert.toBool(val);
 		}
 		return sendTo_email;
 	}
@@ -77,9 +73,9 @@ public class NoticeMessageCategory extends AbstractMessageCategory implements IM
 	}
 
 	public boolean isSendTo_mobile() {
-		final Map<String, Object> props = getProps();
-		if (props != null) {
-			return Convert.toBool(props.get("sendto-mobile"));
+		final String val = getProp("sendto-mobile");
+		if (val != null) {
+			return Convert.toBool(val);
 		}
 		return sendTo_mobile;
 	}
@@ -95,11 +91,7 @@ public class NoticeMessageCategory extends AbstractMessageCategory implements IM
 	}
 
 	public String getTopic(final Map<String, Object> variables) {
-		final Map<String, Object> props = getProps();
-		String topic = null;
-		if (props != null) {
-			topic = (String) props.get("topic");
-		}
+		String topic = getProp("topic");
 		if (topic == null) {
 			topic = defaultTopic;
 		}
@@ -107,14 +99,19 @@ public class NoticeMessageCategory extends AbstractMessageCategory implements IM
 	}
 
 	public String getContent(final Map<String, Object> variables) {
-		final Map<String, Object> props = getProps();
-		String content = null;
-		if (props != null) {
-			content = (String) props.get("content");
-		}
+		String content = getProp("content");
 		if (content == null) {
 			content = defaultContent;
 		}
 		return variables == null ? content : MVEL2Template.replace(variables, content);
+	}
+
+	private String getProp(final String key) {
+		final Map<String, Object> props = messageContext.getContextSettings()
+				.getNoticeMessageCategoryProps(getName());
+		if (props != null && props.containsKey(key)) {
+			return (String) props.get(key);
+		}
+		return null;
 	}
 }

@@ -9,6 +9,7 @@ import net.simpleframework.module.msg.IEmailService;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.IP2PMessageLogService;
 import net.simpleframework.module.msg.IP2PMessageService;
+import net.simpleframework.module.msg.ISMSService;
 import net.simpleframework.module.msg.ISubscribeMessageService;
 import net.simpleframework.module.msg.MessageContextSettings;
 import net.simpleframework.module.msg.P2PMessage;
@@ -66,6 +67,11 @@ public abstract class MessageContext extends AbstractCommonModuleContext impleme
 	@Override
 	public IEmailService getEmailService() {
 		return singleton(EmailService.class);
+	}
+
+	@Override
+	public ISMSService getSMSService() {
+		return singleton(SMSService.class);
 	}
 
 	@Override

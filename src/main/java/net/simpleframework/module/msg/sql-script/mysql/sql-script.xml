@@ -14,7 +14,7 @@
         category varchar(32),
         topic varchar(128) not null,
         content text,
-        tousers varchar(128),
+        tousers varchar(256),
         userid char(32),
         sentdate datetime,
         readdate datetime,
@@ -33,7 +33,7 @@
         category varchar(32),
         topic varchar(128) not null,
         content text not null,
-        tousers varchar(128),
+        tousers varchar(256),
         userid char(32),
         messagesendto tinyint not null,
         primary key(id)

@@ -14,7 +14,7 @@
         category varchar(32),
         topic varchar(128) not null,     
         content clob,
-        tousers varchar(128),
+        tousers varchar(256),
         userid char(32),
         sentdate timestamp,
         readdate timestamp,
@@ -33,7 +33,7 @@
         category varchar(32),
         topic varchar(128) not null,     
         content clob not null,
-        tousers varchar(128),
+        tousers varchar(256),
         userid char(32),
         messagesendto tinyint not null,
         primary key(id)

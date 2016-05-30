@@ -43,7 +43,7 @@ public abstract class MessageContext extends AbstractCommonModuleContext impleme
 
 	@Override
 	protected Module createModule() {
-		return new Module().setName(MODULE_NAME).setText($m("MessageContext.0")).setOrder(2);
+		return super.createModule().setName(MODULE_NAME).setText($m("MessageContext.0")).setOrder(2);
 	}
 
 	@Override

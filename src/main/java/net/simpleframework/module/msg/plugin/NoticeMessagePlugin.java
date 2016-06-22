@@ -76,9 +76,12 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 		}
 
 		// mobile
-		if (mCategory.isSendTo_mobile()) {
+		String mobile;
+		if (mCategory.isSendTo_mobile()
+				&& StringUtils.hasText(mobile = messageContext.getPermission().getUser(toId)
+						.getMobile())) {
+			messageContext.getSMSService().sentSMS(mobile, content, variables);
 		}
-
 		return msg;
 	}
 

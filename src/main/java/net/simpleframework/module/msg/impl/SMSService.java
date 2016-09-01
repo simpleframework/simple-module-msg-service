@@ -83,7 +83,7 @@ public class SMSService extends AbstractBaseService implements ISMSService, IMes
 		}
 
 		@Override
-		public boolean sent(final String mobile, final String template, final Map<String, Object> vars) {
+		public void sent(final String mobile, final String template, final Map<String, Object> vars) {
 			final String _url = (String) settings.get("url");
 			final String _template = (String) settings.get("template." + template);
 			final String _sign = (String) settings.get("template." + template + ".sign");
@@ -95,16 +95,17 @@ public class SMSService extends AbstractBaseService implements ISMSService, IMes
 						.data("rec_num", mobile).data("sms_param", JsonUtils.toJSON(vars)).execute()
 						.body());
 				System.out.println("SMS sent: " + json);
-				return Convert.toBool(json.get("success"));
+				if (!Convert.toBool(json.get("success"))) {
+					throw MessageException.of((String) json.get("msg"));
+				}
 			} catch (final IOException e) {
 				getLog().error(e);
 			}
-			return false;
 		}
 	}
 
 	interface IProvider {
 
-		boolean sent(String mobile, String template, Map<String, Object> vars);
+		void sent(String mobile, String template, Map<String, Object> vars);
 	}
 }

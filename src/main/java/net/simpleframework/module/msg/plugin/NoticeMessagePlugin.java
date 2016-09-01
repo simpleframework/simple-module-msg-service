@@ -48,10 +48,10 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 
 	public P2PMessage sentMessage(final ID toId, final ID fromId,
 			final NoticeMessageCategory mCategory, final Map<String, Object> variables) {
-		final String topic = mCategory.getTopic(variables);
 		final String content = mCategory.getContent(variables);
 		P2PMessage msg = null;
 		if (mCategory.isSendTo_normal()) {
+			final String topic = mCategory.getTopic(variables);
 			msg = sentMessage(toId, fromId, topic, content, mCategory.getName());
 		}
 
@@ -59,6 +59,7 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 		String email;
 		if (mCategory.isSendTo_email()
 				&& StringUtils.hasText(email = messageContext.getPermission().getUser(toId).getEmail())) {
+			final String topic = mCategory.getTopic(variables);
 			messageContext.getEmailService().sentMail(
 					Email.of(email).subject(topic).addHtml(HtmlUtils.convertHtmlLines(content)));
 			// 插入发送日志

@@ -11,8 +11,8 @@ import net.simpleframework.module.msg.SubscribeMessage;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class AbstractSubscribeMessagePlugin extends AbstractMessagePlugin implements
-		ISubscribeMessagePlugin {
+public abstract class AbstractSubscribeMessagePlugin extends AbstractMessagePlugin
+		implements ISubscribeMessagePlugin {
 
 	@Override
 	public Object getFrom(final ID fromId) {

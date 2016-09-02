@@ -58,8 +58,8 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 
 		// email
 		String email;
-		if (mCategory.isSendTo_email()
-				&& StringUtils.hasText(email = messageContext.getPermission().getUser(toId).getEmail())) {
+		if (mCategory.isSendTo_email() && StringUtils
+				.hasText(email = messageContext.getPermission().getUser(toId).getEmail())) {
 			final String topic = mCategory.getTopic(variables);
 			messageContext.getEmailService().sentMail(
 					Email.of(email).subject(topic).addHtml(HtmlUtils.convertHtmlLines(content)));
@@ -79,9 +79,8 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 
 		// mobile
 		String mobile;
-		if (mCategory.isSendTo_mobile()
-				&& StringUtils.hasText(mobile = messageContext.getPermission().getUser(toId)
-						.getMobile())) {
+		if (mCategory.isSendTo_mobile() && StringUtils
+				.hasText(mobile = messageContext.getPermission().getUser(toId).getMobile())) {
 			messageContext.getSMSService().sentSMS(mobile, HtmlUtils.parseDocument(content).text(),
 					variables);
 		}

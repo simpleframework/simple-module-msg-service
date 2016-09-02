@@ -2,19 +2,15 @@ package net.simpleframework.module.msg.impl;
 
 import static net.simpleframework.common.I18n.$m;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.simpleframework.common.Convert;
-import net.simpleframework.common.JsonUtils;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.service.AbstractBaseService;
 import net.simpleframework.ctx.task.ExecutorRunnableEx;
-import net.simpleframework.lib.org.jsoup.Jsoup;
 import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.module.msg.ISMSService;
-import net.simpleframework.module.msg.MessageContextSettings;
 import net.simpleframework.module.msg.MessageException;
 
 /**
@@ -26,24 +22,10 @@ import net.simpleframework.module.msg.MessageException;
  */
 public class SMSService extends AbstractBaseService implements ISMSService, IMessageContextAware {
 
-	private final Map<String, IProvider> sCache = new HashMap<String, IProvider>();
-	private final Map<String, Boolean> ASYNCs = new HashMap<String, Boolean>();
+	private final Map<String, IProvider> providers = new HashMap<String, IProvider>();
 
-	private IProvider getSmsProvider(final String name) {
-		IProvider provider = sCache.get(name);
-		if (provider == null) {
-			final Map<String, Object> settings = ((MessageContextSettings) getModuleContext()
-					.getContextSettings()).getTagProps("mobile-sms", name);
-			if (settings == null) {
-				return null;
-			}
-			final String _provider = (String) settings.get("provider");
-			if ("alidayu".equals(_provider)) {
-				sCache.put(name, provider = new Alidayu(settings));
-			}
-			ASYNCs.put(name, Convert.toBool(settings.get("async")));
-		}
-		return provider;
+	protected void registProvider(final String name, final IProvider provider) {
+		providers.put(name, provider);
 	}
 
 	@Override
@@ -53,20 +35,20 @@ public class SMSService extends AbstractBaseService implements ISMSService, IMes
 			sms = "default";
 		}
 
-		final IProvider provider = getSmsProvider(sms);
-		if (provider != null) {
-			if (ASYNCs.get(sms)) {
-				getTaskExecutor().execute(new ExecutorRunnableEx("msg_sent_sms", $m("SMSService.1")) {
-					@Override
-					protected void task(final Map<String, Object> cache) throws Exception {
-						provider.sent(mobile, template, vars);
-					}
-				});
-			} else {
-				provider.sent(mobile, template, vars);
-			}
-		} else {
+		final IProvider provider = providers.get(sms);
+		if (provider == null) {
 			throw MessageException.of($m("SMSService.0", "mobile-sms:" + sms));
+		}
+
+		if (Convert.toBool(provider.prop("async"))) {
+			getTaskExecutor().execute(new ExecutorRunnableEx("msg_sent_sms", $m("SMSService.1")) {
+				@Override
+				protected void task(final Map<String, Object> cache) throws Exception {
+					provider.sent(mobile, template, vars);
+				}
+			});
+		} else {
+			provider.sent(mobile, template, vars);
 		}
 	}
 
@@ -75,36 +57,9 @@ public class SMSService extends AbstractBaseService implements ISMSService, IMes
 		sentSMS(null, mobile, template, vars);
 	}
 
-	class Alidayu implements IProvider {
-		private final Map<String, Object> settings;
+	protected static interface IProvider {
 
-		Alidayu(final Map<String, Object> settings) {
-			this.settings = settings;
-		}
-
-		@Override
-		public void sent(final String mobile, final String template, final Map<String, Object> vars) {
-			final String _url = (String) settings.get("url");
-			final String _template = (String) settings.get("template." + template);
-			final String _sign = (String) settings.get("template." + template + ".sign");
-			try {
-				final Map<String, ?> json = JsonUtils.toMap(Jsoup.connect(_url).ignoreContentType(true)
-						.header("X-Ca-Key", (String) settings.get("app.key"))
-						.header("X-Ca-Secret", (String) settings.get("app.secret"))
-						.data("sms_template_code", _template).data("sms_free_sign_name", _sign)
-						.data("rec_num", mobile).data("sms_param", JsonUtils.toJSON(vars)).execute()
-						.body());
-				System.out.println("SMS sent: " + json);
-				if (!Convert.toBool(json.get("success"))) {
-					throw MessageException.of((String) json.get("msg"));
-				}
-			} catch (final IOException e) {
-				getLog().error(e);
-			}
-		}
-	}
-
-	interface IProvider {
+		String prop(String key);
 
 		void sent(String mobile, String template, Map<String, Object> vars);
 	}

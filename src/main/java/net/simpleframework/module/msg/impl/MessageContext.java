@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.impl;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.ado.db.DbEntityTable;
 import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.Module;
@@ -24,7 +25,8 @@ import net.simpleframework.module.msg.plugin.NoticeMessagePlugin;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class MessageContext extends AbstractCommonModuleContext implements IMessageContext {
+public abstract class MessageContext extends AbstractCommonModuleContext
+		implements IMessageContext {
 
 	@Override
 	public void onInit(final IApplicationContext application) throws Exception {

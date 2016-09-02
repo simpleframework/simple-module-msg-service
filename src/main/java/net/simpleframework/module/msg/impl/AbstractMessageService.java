@@ -21,8 +21,8 @@ import net.simpleframework.module.msg.SubscribeMessage;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class AbstractMessageService<T extends AbstractMessage> extends
-		AbstractDbBeanService<T> implements IMessageService<T>, IMessageContextAware {
+public abstract class AbstractMessageService<T extends AbstractMessage>
+		extends AbstractDbBeanService<T> implements IMessageService<T>, IMessageContextAware {
 
 	/**
 	 * 子类覆盖,模块标识
@@ -65,7 +65,8 @@ public abstract class AbstractMessageService<T extends AbstractMessage> extends
 	}
 
 	@Override
-	public IDataQuery<T> queryMessages(final Object userId, final Boolean read, final String category) {
+	public IDataQuery<T> queryMessages(final Object userId, final Boolean read,
+			final String category) {
 		throw NotImplementedException.of(getClass(),
 				"queryMessages(Object userId, Boolean read, String category);");
 	}
@@ -82,9 +83,9 @@ public abstract class AbstractMessageService<T extends AbstractMessage> extends
 		final List<CategoryStat> l = new ArrayList<CategoryStat>();
 		if (userId != null) {
 			Object[] params = new Object[] { userId };
-			String sql = "select category, count(*) as cc from "
-					+ (this instanceof P2PMessageService ? getTablename(P2PMessage.class)
-							: getTablename(SubscribeMessage.class)) + " where userId=?";
+			String sql = "select category, count(*) as cc from " + (this instanceof P2PMessageService
+					? getTablename(P2PMessage.class) : getTablename(SubscribeMessage.class))
+					+ " where userId=?";
 			final int mark = getMark();
 			if (mark != 0) {
 				sql += " and messagemark=?";

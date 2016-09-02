@@ -28,8 +28,8 @@ public interface IMessageCategory extends IObjectOrderAware {
 	 */
 	Object getFrom(ID fromId);
 
-	public abstract static class AbstractMessageCategory extends ObjectEx implements
-			IMessageCategory {
+	public abstract static class AbstractMessageCategory extends ObjectEx
+			implements IMessageCategory {
 		private String name;
 
 		protected String _text;

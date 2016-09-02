@@ -24,8 +24,8 @@ import net.simpleframework.module.msg.MessageException;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class EmailService extends AbstractBaseService implements IEmailService,
-		IMessageContextAware {
+public class EmailService extends AbstractBaseService
+		implements IEmailService, IMessageContextAware {
 
 	private final Map<String, SmtpServer> sCache = new HashMap<String, SmtpServer>();
 	private final Map<String, Boolean> ASYNCs = new HashMap<String, Boolean>();
@@ -44,8 +44,8 @@ public class EmailService extends AbstractBaseService implements IEmailService,
 			if (StringUtils.hasText(username)) {
 				final boolean ssl = Convert.toBool(settings.get("ssl"));
 				final String password = (String) settings.get("password");
-				server = ssl ? new SmtpSslServer(host, port, username, password) : new SmtpServer(host,
-						port, username, password);
+				server = ssl ? new SmtpSslServer(host, port, username, password)
+						: new SmtpServer(host, port, username, password);
 			} else {
 				server = new SmtpServer(host, port);
 			}

@@ -13,8 +13,8 @@ import net.simpleframework.module.msg.P2PMessageLog;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class P2PMessageLogService extends AbstractMessageService<P2PMessageLog> implements
-		IP2PMessageLogService {
+public class P2PMessageLogService extends AbstractMessageService<P2PMessageLog>
+		implements IP2PMessageLogService {
 	@Override
 	public boolean isRead(final Object userId, final P2PMessageLog message) {
 		return true;

@@ -21,15 +21,13 @@ import net.simpleframework.module.msg.SubscribeMessageRead;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class SubscribeMessageService extends AbstractMessageService<SubscribeMessage> implements
-		ISubscribeMessageService {
+public class SubscribeMessageService extends AbstractMessageService<SubscribeMessage>
+		implements ISubscribeMessageService {
 
 	private SubscribeMessageRead getMessageRead(final Object userId, final Object message) {
-		return getEntityManager(SubscribeMessageRead.class)
-				.queryForBean(
-						new ExpressionValue("userId=? and messageId=?", userId,
-								message instanceof AbstractIdBean ? ((AbstractIdBean) message).getId()
-										: message));
+		return getEntityManager(SubscribeMessageRead.class).queryForBean(new ExpressionValue(
+				"userId=? and messageId=?", userId,
+				message instanceof AbstractIdBean ? ((AbstractIdBean) message).getId() : message));
 	}
 
 	@Override
@@ -65,7 +63,8 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 	@Override
 	public int doDelete(final Object userId, final Object[] ids) {
 		int c = 0;
-		final IDbEntityManager<SubscribeMessageRead> service = getEntityManager(SubscribeMessageRead.class);
+		final IDbEntityManager<SubscribeMessageRead> service = getEntityManager(
+				SubscribeMessageRead.class);
 		for (final Object id : ids) {
 			SubscribeMessageRead read = getMessageRead(userId, id);
 			if (read != null) {
@@ -128,7 +127,8 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 			public void onBeforeDelete(final IDbEntityManager<SubscribeMessage> manager,
 					final IParamsValue paramsValue) throws Exception {
 				super.onBeforeDelete(manager, paramsValue);
-				final IDbEntityManager<SubscribeMessageRead> service = getEntityManager(SubscribeMessageRead.class);
+				final IDbEntityManager<SubscribeMessageRead> service = getEntityManager(
+						SubscribeMessageRead.class);
 				for (final SubscribeMessage message : coll(manager, paramsValue)) {
 					service.delete(new ExpressionValue("messageid=?", message.getId()));
 				}

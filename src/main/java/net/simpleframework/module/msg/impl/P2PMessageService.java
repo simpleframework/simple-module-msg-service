@@ -13,8 +13,8 @@ import net.simpleframework.module.msg.P2PMessage;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class P2PMessageService extends AbstractMessageService<P2PMessage> implements
-		IP2PMessageService {
+public class P2PMessageService extends AbstractMessageService<P2PMessage>
+		implements IP2PMessageService {
 
 	@Override
 	public boolean isRead(final Object userId, final P2PMessage message) {

@@ -43,6 +43,11 @@ public class SMSService extends AbstractBaseService implements ISMSService, IMes
 		if (Convert.toBool(provider.prop("async"))) {
 			getTaskExecutor().execute(new ExecutorRunnableEx("msg_sent_sms", $m("SMSService.1")) {
 				@Override
+				protected boolean isRun(final Map<String, Object> cache) throws Exception {
+					return true;
+				}
+
+				@Override
 				protected void task(final Map<String, Object> cache) throws Exception {
 					provider.sent(mobile, template, vars);
 				}

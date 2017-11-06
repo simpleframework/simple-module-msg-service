@@ -37,7 +37,7 @@ public class P2PMessageLogService extends AbstractMessageService<P2PMessageLog>
 	@Override
 	public IDataQuery<P2PMessageLog> queryMessages(final EMessageSendTo sendTo) {
 		String expr = "1=1";
-		final ArrayList<Object> al = new ArrayList<Object>();
+		final ArrayList<Object> al = new ArrayList<>();
 		final int mark = getMark();
 		if (mark != 0) {
 			expr += " and messagemark=?";

@@ -22,7 +22,7 @@ import net.simpleframework.module.msg.MessageException;
  */
 public class SMSService extends AbstractBaseService implements ISMSService, IMessageContextAware {
 
-	private final Map<String, IProvider> providers = new HashMap<String, IProvider>();
+	private final Map<String, IProvider> providers = new HashMap<>();
 
 	protected void registProvider(final String name, final IProvider provider) {
 		providers.put(name, provider);

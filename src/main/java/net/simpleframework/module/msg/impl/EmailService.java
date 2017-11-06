@@ -28,8 +28,8 @@ import net.simpleframework.module.msg.MessageException;
 public class EmailService extends AbstractBaseService
 		implements IEmailService, IMessageContextAware {
 
-	private final Map<String, SmtpServer> sCache = new HashMap<String, SmtpServer>();
-	private final Map<String, Boolean> ASYNCs = new HashMap<String, Boolean>();
+	private final Map<String, SmtpServer> sCache = new HashMap<>();
+	private final Map<String, Boolean> ASYNCs = new HashMap<>();
 
 	private SmtpServer getSmtpServer(final String name) {
 		SmtpServer server = sCache.get(name);

@@ -40,7 +40,7 @@ public class P2PMessageService extends AbstractMessageService<P2PMessage>
 	@Override
 	public int getUnreadMessageCount(final Object userId) {
 		String expr = "userid=?";
-		final ArrayList<Object> al = new ArrayList<Object>();
+		final ArrayList<Object> al = new ArrayList<>();
 		al.add(userId);
 		final int mark = getMark();
 		if (mark != 0) {
@@ -66,7 +66,7 @@ public class P2PMessageService extends AbstractMessageService<P2PMessage>
 	private IDataQuery<P2PMessage> _queryMessages(final Object userId, final boolean from,
 			final Boolean read, final String category) {
 		String expr = from ? "fromId=?" : "userId=?";
-		final ArrayList<Object> al = new ArrayList<Object>();
+		final ArrayList<Object> al = new ArrayList<>();
 		al.add(userId);
 		final int mark = getMark();
 		if (mark != 0) {

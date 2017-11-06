@@ -19,7 +19,7 @@ public abstract class AbstractMessagePlugin extends AbstractModulePlugin
 
 	protected Map<String, IMessageCategory> categoryCache;
 	{
-		categoryCache = new HashMap<String, IMessageCategory>();
+		categoryCache = new HashMap<>();
 	}
 
 	@Override

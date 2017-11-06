@@ -89,7 +89,7 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 	@Override
 	public int getUnreadMessageCount(final Object userId) {
 		String sql = JOIN_SQL;
-		final ArrayList<Object> al = new ArrayList<Object>();
+		final ArrayList<Object> al = new ArrayList<>();
 		al.add(userId);
 		final int mark = getMark();
 		if (mark != 0) {

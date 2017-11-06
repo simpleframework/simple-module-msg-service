@@ -37,7 +37,7 @@ public abstract class AbstractMessageService<T extends AbstractMessage>
 	@Override
 	public IDataQuery<T> queryMessages() {
 		String expr = "1=1";
-		final ArrayList<Object> al = new ArrayList<Object>();
+		final ArrayList<Object> al = new ArrayList<>();
 		final int mark = getMark();
 		if (mark != 0) {
 			expr += " and messagemark=?";
@@ -81,7 +81,7 @@ public abstract class AbstractMessageService<T extends AbstractMessage>
 
 	@Override
 	public List<CategoryStat> queryCategoryItems(final Object userId) {
-		final List<CategoryStat> l = new ArrayList<CategoryStat>();
+		final List<CategoryStat> l = new ArrayList<>();
 		if (userId != null) {
 			Object[] params = new Object[] { userId };
 			String sql = "select category, count(*) as cc from " + (this instanceof P2PMessageService

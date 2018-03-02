@@ -87,7 +87,7 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 			+ " b on (a.id=b.messageid and b.userid=?) where ";
 
 	@Override
-	public int getUnreadMessageCount(final Object userId) {
+	public int getUnreadMessageCount(final Object userId, final ID shopId) {
 		String sql = JOIN_SQL;
 		final ArrayList<Object> al = new ArrayList<>();
 		al.add(userId);
@@ -95,6 +95,10 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 		if (mark != 0) {
 			sql += "a.messagemark=? and ";
 			al.add(mark);
+		}
+		if (shopId != null) {
+			sql += "a.shopId=? and ";
+			al.add(shopId);
 		}
 		sql += "b.readdate is null and b.deletedate is null";
 		return getEntityManager().count(new SQLValue(sql, al.toArray()));

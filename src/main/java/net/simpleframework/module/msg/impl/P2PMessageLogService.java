@@ -3,6 +3,7 @@ package net.simpleframework.module.msg.impl;
 import java.util.ArrayList;
 
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.common.ID;
 import net.simpleframework.module.msg.EMessageSendTo;
 import net.simpleframework.module.msg.IP2PMessageLogService;
 import net.simpleframework.module.msg.P2PMessageLog;
@@ -30,7 +31,7 @@ public class P2PMessageLogService extends AbstractMessageService<P2PMessageLog>
 	}
 
 	@Override
-	public int getUnreadMessageCount(final Object userId) {
+	public int getUnreadMessageCount(final Object userId, final ID shopId) {
 		return 0;
 	}
 

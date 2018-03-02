@@ -20,9 +20,10 @@ public interface IMessageService<T extends AbstractMessage> extends IDbBeanServi
 	 * 获取未读数量
 	 * 
 	 * @param userId
+	 * @param shopId
 	 * @return
 	 */
-	int getUnreadMessageCount(Object userId);
+	int getUnreadMessageCount(Object userId, ID shopId);
 
 	/**
 	 * 判断消息是否已读
@@ -84,11 +85,12 @@ public interface IMessageService<T extends AbstractMessage> extends IDbBeanServi
 	 * 查询发送者的消息
 	 * 
 	 * @param userId
+	 * @param shopId
 	 * @param read
 	 * @param category
 	 * @return
 	 */
-	IDataQuery<T> queryFromMessages(Object userId, Boolean read, String category);
+	IDataQuery<T> queryFromMessages(Object userId, ID shopId, Boolean read, String category);
 
 	/**
 	 * 按mark查询消息

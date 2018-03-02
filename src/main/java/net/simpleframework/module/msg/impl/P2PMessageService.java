@@ -39,7 +39,7 @@ public class P2PMessageService extends AbstractMessageService<P2PMessage>
 	}
 
 	@Override
-	public int getUnreadMessageCount(final Object userId) {
+	public int getUnreadMessageCount(final Object userId, final ID shopId) {
 		String expr = "userid=?";
 		final ArrayList<Object> al = new ArrayList<>();
 		al.add(userId);
@@ -48,6 +48,10 @@ public class P2PMessageService extends AbstractMessageService<P2PMessage>
 			expr += " and messagemark=?";
 			al.add(mark);
 		}
+		if (shopId != null) {
+			expr += " and shopid=?";
+			al.add(shopId);
+		}
 		expr += " and readdate is null";
 		return count(expr, al.toArray());
 	}
@@ -55,17 +59,17 @@ public class P2PMessageService extends AbstractMessageService<P2PMessage>
 	@Override
 	public IDataQuery<P2PMessage> queryMessages(final Object userId, final ID shopId,
 			final Boolean read, final String category) {
-		return _queryMessages(userId, false, read, category);
+		return _queryMessages(userId, false, shopId, read, category);
 	}
 
 	@Override
-	public IDataQuery<P2PMessage> queryFromMessages(final Object userId, final Boolean read,
-			final String category) {
-		return _queryMessages(userId, true, read, category);
+	public IDataQuery<P2PMessage> queryFromMessages(final Object userId, final ID shopId,
+			final Boolean read, final String category) {
+		return _queryMessages(userId, true, shopId, read, category);
 	}
 
 	private IDataQuery<P2PMessage> _queryMessages(final Object userId, final boolean from,
-			final Boolean read, final String category) {
+			final ID shopId, final Boolean read, final String category) {
 		String expr = from ? "fromId=?" : "userId=?";
 		final ArrayList<Object> al = new ArrayList<>();
 		al.add(userId);
@@ -80,6 +84,10 @@ public class P2PMessageService extends AbstractMessageService<P2PMessage>
 			} else {
 				expr += " and readdate is null";
 			}
+		}
+		if (shopId != null) {
+			expr += " and shopid=?";
+			al.add(shopId);
 		}
 		if (category != null) {
 			expr += " and category=?";

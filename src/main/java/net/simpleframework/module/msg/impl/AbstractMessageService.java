@@ -74,7 +74,7 @@ public abstract class AbstractMessageService<T extends AbstractMessage>
 	}
 
 	@Override
-	public IDataQuery<T> queryFromMessages(final Object userId, final Boolean read,
+	public IDataQuery<T> queryFromMessages(final Object userId, final ID shopId, final Boolean read,
 			final String category) {
 		throw NotImplementedException.of(getClass(),
 				"queryFromMessages(Object userId, Boolean read, String category);");

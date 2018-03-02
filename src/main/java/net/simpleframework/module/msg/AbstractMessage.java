@@ -17,6 +17,9 @@ public abstract class AbstractMessage extends AbstractDateAwareBean implements I
 	/* 域id */
 	private ID domainId;
 
+	/* 店铺id */
+	private ID shopId;
+
 	/* 通知源标识 */
 	private int messageMark;
 
@@ -40,6 +43,14 @@ public abstract class AbstractMessage extends AbstractDateAwareBean implements I
 	@Override
 	public void setDomainId(final ID domainId) {
 		this.domainId = domainId;
+	}
+
+	public ID getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(final ID shopId) {
+		this.shopId = shopId;
 	}
 
 	public int getMessageMark() {

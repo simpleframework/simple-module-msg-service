@@ -8,7 +8,8 @@ import net.simpleframework.module.msg.P2PMessage;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public interface IP2PMessagePlugin extends IMessagePlugin {
@@ -23,18 +24,19 @@ public interface IP2PMessagePlugin extends IMessagePlugin {
 	 */
 	IP2PMessageLogService getMessageLogService();
 
-	P2PMessage sentMessage(ID toId, ID fromId, String topic, String content);
+	P2PMessage sentMessage(ID toId, ID fromId, ID shopId, String topic, String content);
 
 	/**
 	 * 发送订阅消息
 	 * 
-	 * @param messageSendTo
 	 * @param toId
 	 * @param fromId
+	 * @param shopId
 	 * @param topic
 	 * @param content
 	 * @param category
 	 * @return
 	 */
-	P2PMessage sentMessage(ID toId, ID fromId, String topic, String content, String category);
+	P2PMessage sentMessage(ID toId, ID fromId, ID shopId, String topic, String content,
+			String category);
 }

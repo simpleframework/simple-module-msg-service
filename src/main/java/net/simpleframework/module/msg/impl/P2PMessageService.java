@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.common.ID;
 import net.simpleframework.module.msg.IP2PMessageService;
 import net.simpleframework.module.msg.P2PMessage;
 
@@ -52,8 +53,8 @@ public class P2PMessageService extends AbstractMessageService<P2PMessage>
 	}
 
 	@Override
-	public IDataQuery<P2PMessage> queryMessages(final Object userId, final Boolean read,
-			final String category) {
+	public IDataQuery<P2PMessage> queryMessages(final Object userId, final ID shopId,
+			final Boolean read, final String category) {
 		return _queryMessages(userId, false, read, category);
 	}
 

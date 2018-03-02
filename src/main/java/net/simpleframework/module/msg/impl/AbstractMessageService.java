@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.common.ID;
 import net.simpleframework.common.coll.ArrayUtils;
 import net.simpleframework.common.th.NotImplementedException;
 import net.simpleframework.ctx.service.ado.db.AbstractDbBeanService;
@@ -47,8 +48,8 @@ public abstract class AbstractMessageService<T extends AbstractMessage>
 	}
 
 	@Override
-	public void doAllRead(final Object userId) {
-		final IDataQuery<T> dq = queryMessages(userId, false);
+	public void doAllRead(final Object userId, final ID shopId) {
+		final IDataQuery<T> dq = queryMessages(userId, shopId, false);
 		T msg;
 		while ((msg = dq.next()) != null) {
 			doRead(userId, msg);
@@ -61,12 +62,12 @@ public abstract class AbstractMessageService<T extends AbstractMessage>
 	}
 
 	@Override
-	public IDataQuery<T> queryMessages(final Object userId, final Boolean read) {
-		return queryMessages(userId, read, null);
+	public IDataQuery<T> queryMessages(final Object userId, final ID shopId, final Boolean read) {
+		return queryMessages(userId, shopId, read, null);
 	}
 
 	@Override
-	public IDataQuery<T> queryMessages(final Object userId, final Boolean read,
+	public IDataQuery<T> queryMessages(final Object userId, final ID shopId, final Boolean read,
 			final String category) {
 		throw NotImplementedException.of(getClass(),
 				"queryMessages(Object userId, Boolean read, String category);");

@@ -47,13 +47,13 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 		return $m("NoticeMessagePlugin.0");
 	}
 
-	public P2PMessage sentMessage(final ID toId, final ID fromId,
+	public P2PMessage sentMessage(final ID toId, final ID fromId, final ID shopId,
 			final NoticeMessageCategory mCategory, final Map<String, Object> variables) {
 		final String content = mCategory.getContent(variables);
 		P2PMessage msg = null;
 		if (mCategory.isSendTo_normal()) {
 			final String topic = mCategory.getTopic(variables);
-			msg = sentMessage(toId, fromId, topic, content, mCategory.getName());
+			msg = sentMessage(toId, fromId, shopId, topic, content, mCategory.getName());
 		}
 
 		// email
@@ -67,6 +67,7 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 			final P2PMessageLog log = new P2PMessageLog();
 			log.setUserId(toId);
 			log.setFromId(fromId);
+			log.setShopId(shopId);
 			log.setCreateDate(new Date());
 			log.setMessageMark(getMark());
 			log.setTopic(topic);
@@ -87,8 +88,8 @@ public class NoticeMessagePlugin extends AbstractP2PMessagePlugin {
 		return msg;
 	}
 
-	public P2PMessage sentMessage(final ID toId, final NoticeMessageCategory mCategory,
-			final Map<String, Object> variables) {
-		return sentMessage(toId, null, mCategory, variables);
+	public P2PMessage sentMessage(final ID toId, final ID shopId,
+			final NoticeMessageCategory mCategory, final Map<String, Object> variables) {
+		return sentMessage(toId, null, shopId, mCategory, variables);
 	}
 }

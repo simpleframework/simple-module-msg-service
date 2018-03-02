@@ -101,8 +101,8 @@ public class SubscribeMessageService extends AbstractMessageService<SubscribeMes
 	}
 
 	@Override
-	public IDataQuery<SubscribeMessage> queryMessages(final Object userId, final Boolean read,
-			final String category) {
+	public IDataQuery<SubscribeMessage> queryMessages(final Object userId, final ID shopId,
+			final Boolean read, final String category) {
 		String sql = JOIN_SQL + "a.messagemark=? and b.deletedate is null";
 		Object[] params = new Object[] { userId, getMark() };
 		if (read != null) {

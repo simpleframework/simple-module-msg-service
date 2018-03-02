@@ -3,6 +3,7 @@ package net.simpleframework.module.msg;
 import java.util.List;
 
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.common.ID;
 import net.simpleframework.ctx.service.ado.db.IDbBeanService;
 import net.simpleframework.module.common.bean.CategoryStat;
 
@@ -52,8 +53,9 @@ public interface IMessageService<T extends AbstractMessage> extends IDbBeanServi
 	 * 标记指定用户所有的消息为已读
 	 * 
 	 * @param userId
+	 * @param userId
 	 */
-	void doAllRead(Object userId);
+	void doAllRead(Object userId, ID shopId);
 
 	/**
 	 * 删除消息
@@ -64,18 +66,19 @@ public interface IMessageService<T extends AbstractMessage> extends IDbBeanServi
 	 */
 	int doDelete(Object userId, Object[] ids);
 
-	IDataQuery<T> queryMessages(Object userId, Boolean read);
+	IDataQuery<T> queryMessages(Object userId, ID shopId, Boolean read);
 
 	/**
 	 * 查询接收者的消息
 	 * 
 	 * @param userId
+	 * @param shopId
 	 * @param read
 	 *        null 全部; true 已读; false 未读
 	 * @param category
 	 * @return
 	 */
-	IDataQuery<T> queryMessages(Object userId, Boolean read, String category);
+	IDataQuery<T> queryMessages(Object userId, ID shopId, Boolean read, String category);
 
 	/**
 	 * 查询发送者的消息
